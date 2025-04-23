@@ -40,3 +40,6 @@ def sha256(message: bytes) -> bytes:
             h0, g, f, e, d, c, b, a = g, f, e, (d + temp1) & 0xFFFFFFFF, c, b, a, (temp1 + temp2) & 0xFFFFFFFF
         h = [(x + y) & 0xFFFFFFFF for x, y in zip(h, [a, b, c, d, e, f, g, h0])]
     return b''.join(struct.pack('>I', x) for x in h)
+
+#credits from: https://medium.com/@domspaulo/python-implementation-of-sha-256-from-scratch-924f660c5d57
+

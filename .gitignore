@@ -1,0 +1,10 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore key files
+*.txt
+*.bin
+
+# Ignore virtual environment
+venv/

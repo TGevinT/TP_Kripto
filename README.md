@@ -106,7 +106,7 @@ Fitur ini melakukan enkripsi-dekripsi otomatis terhadap sebuah file, lalu memban
 
 5. Selain itu, semua proses yang sukses akan menampilkan notifikasi, dan error apapun ditangani serta ditampilkan ke pengguna melalui pop-up message.
 
-# 1. folder tests
+# 2. folder tests
 
 Berisi kumpulan file-file dalam bentuk binary executable file, image, dan video untuk pengecekan apakah berhasil atau tidak. Terdapat
 juga hasil yang sudah dienkripsi dan yang sudah didekripsi

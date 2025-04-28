@@ -3,10 +3,7 @@ __pycache__/
 *.pyc
 
 tests
-
-# Ignore key files
-*.txt
-*.bin
+keys
 
 # Ignore virtual environment
 venv/

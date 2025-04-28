@@ -1,38 +1,35 @@
-import tkinter as tk
+import ttkbootstrap as ttk
 from tkinter import filedialog, messagebox
 import os
 from rsa import generate_rsa_keypair
 from encrypt import rsa_encrypt_file
 from decrypt import rsa_decrypt_file
-import filecmp
 
-# Kelas utama untuk aplikasi GUI RSA-OAEP
 class RSAOAEPApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("RSA-OAEP Encryption/Decryption")
+        self.root.title("RSA-OAEP")
+        self.root.geometry("400x400")
 
-        # Path default untuk file kunci dan file sementara
         self.public_key_file = "keys/public.txt"
         self.private_key_file = "keys/private.txt"
-        self.test_file_path = None
-        self.encrypted_file_path = "test_cipher.bin"
-        self.decrypted_file_path = "test_decrypted"
 
-        #GUI Setting
-        tk.Button(root, text="Generate RSA Key Pair", command=self.generate_keys).pack(pady=5)
-        tk.Button(root, text="Encrypt File", command=self.encrypt_file).pack(pady=5)
-        tk.Button(root, text="Decrypt File", command=self.decrypt_file).pack(pady=5)
-        tk.Button(root, text="Run File Integrity Test", command=self.test_integrity).pack(pady=5)
+        main_frame = ttk.Frame(root, padding=20)
+        main_frame.pack(expand=True)
 
-    # untuk menghasilkan pasangan kunci RSA
+        ttk.Label(main_frame, text="RSA-OAEP", font=("Helvetica", 18, "bold")).pack(pady=10)
+
+        ttk.Button(main_frame, text="Generate RSA Key Pair", width=30, bootstyle="success", command=self.generate_keys).pack(pady=10, anchor='center')
+        ttk.Button(main_frame, text="Encrypt File", width=30, bootstyle="primary", command=self.encrypt_file).pack(pady=5, anchor='center')
+        ttk.Button(main_frame, text="Decrypt File", width=30, bootstyle="info", command=self.decrypt_file).pack(pady=5, anchor='center')
+
     def generate_keys(self):
         try:
             generate_rsa_keypair()
             messagebox.showinfo("Success", "RSA key pair generated successfully.")
         except Exception as e:
             messagebox.showerror("Error", str(e))
-    # untuk mengenkripsi file yang dipilih
+
     def encrypt_file(self):
         input_file = filedialog.askopenfilename(title="Select file to encrypt")
         if not input_file:
@@ -45,7 +42,7 @@ class RSAOAEPApp:
             messagebox.showinfo("Success", "File encrypted successfully.")
         except Exception as e:
             messagebox.showerror("Error", str(e))
-    # untuk mendekripsi file yang dipilih
+
     def decrypt_file(self):
         input_file = filedialog.askopenfilename(title="Select file to decrypt")
         if not input_file:
@@ -58,23 +55,8 @@ class RSAOAEPApp:
             messagebox.showinfo("Success", "File decrypted successfully.")
         except Exception as e:
             messagebox.showerror("Error", str(e))
-    # untuk menguji integritas file setelah enkripsi-dekripsi
-    def test_integrity(self):
-        self.test_file_path = filedialog.askopenfilename(title="Pilih file untuk pengujian integritas")
-        if not self.test_file_path:
-            return
-        try:
-            rsa_encrypt_file(self.test_file_path, self.encrypted_file_path, self.public_key_file)
-            rsa_decrypt_file(self.encrypted_file_path, self.decrypted_file_path, self.private_key_file)
-            # Bandingkan file asli dan hasil dekripsi
-            if filecmp.cmp(self.test_file_path, self.decrypted_file_path, shallow=False):
-                messagebox.showinfo("Test Result", "✅ File integrity verified after encryption and decryption.")
-            else:
-                messagebox.showerror("Test Result", "❌ File mismatch after decryption.")
-        except Exception as e:
-            messagebox.showerror("Error", str(e))
 
 if __name__ == "__main__":
-    root = tk.Tk()
+    root = ttk.Window(themename="superhero")
     app = RSAOAEPApp(root)
     root.mainloop()

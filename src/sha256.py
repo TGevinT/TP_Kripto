@@ -1,9 +1,11 @@
 import struct
 
+#rotate kanan sebanyak 32 bit
 def right_rotate(n, d):
     return ((n >> d) | (n << (32 - d))) & 0xFFFFFFFF
 
 def sha256(message: bytes) -> bytes:
+    #64 konstanta untuk setiap round
     k = [
         0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
         0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
@@ -14,21 +16,30 @@ def sha256(message: bytes) -> bytes:
         0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
         0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
     ]
+    # initial value h0-h7
     h = [
         0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
         0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
     ]
-    message_len = len(message) * 8
+
+    #message pading
+    message_len = len(message) * 8 #panjang pesan dalam 8 bit
     message += b'\x80'
     while (len(message) * 8) % 512 != 448:
         message += b'\x00'
-    message += struct.pack('>Q', message_len)
+    message += struct.pack('>Q', message_len) #panjang asli pesan sebanyak 64 bit
+
+    # proses ini menjadikan per blok 512-bit (64 byte)
     for i in range(0, len(message), 64):
+
+         # proses ini embagi blok menjadi 16 word 32-bit, lalu diperluas menjadi 64 word
         w = list(struct.unpack('>16L', message[i:i+64])) + [0]*48
         for j in range(16, 64):
             s0 = right_rotate(w[j-15], 7) ^ right_rotate(w[j-15], 18) ^ (w[j-15] >> 3)
             s1 = right_rotate(w[j-2], 17) ^ right_rotate(w[j-2], 19) ^ (w[j-2] >> 10)
             w[j] = (w[j-16] + s0 + w[j-7] + s1) & 0xFFFFFFFF
+
+        #inisialisasi work variable
         a, b, c, d, e, f, g, h0 = h
         for j in range(64):
             S1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25)
@@ -37,9 +48,11 @@ def sha256(message: bytes) -> bytes:
             S0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22)
             maj = (a & b) ^ (a & c) ^ (b & c)
             temp2 = (S0 + maj) & 0xFFFFFFFF
+            #update work variable
             h0, g, f, e, d, c, b, a = g, f, e, (d + temp1) & 0xFFFFFFFF, c, b, a, (temp1 + temp2) & 0xFFFFFFFF
+        #update final value
         h = [(x + y) & 0xFFFFFFFF for x, y in zip(h, [a, b, c, d, e, f, g, h0])]
-    return b''.join(struct.pack('>I', x) for x in h)
+    return b''.join(struct.pack('>I', x) for x in h) # gabungkan hasil akhir untuk menjadi byte
 
 #credits from: https://medium.com/@domspaulo/python-implementation-of-sha-256-from-scratch-924f660c5d57
 

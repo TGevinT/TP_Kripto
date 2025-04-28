@@ -3,6 +3,9 @@
 - Raden Dhaneswara Timur Bhamakrti Rasendriya - 2106750710
 - Teuku Gevin Taufan - 2106750194
 
+# Cara run program
+- Klik run pada main.py
+
 # Penjelasan mengenai file-file pada folder
 
 # 1. folder src
@@ -101,7 +104,4 @@ Memungkinkan pengguna memilih file plaintext lewat file dialog, lalu mengenkrips
 3. Decrypt File
 Membuka file ciphertext .bin, lalu melakukan dekripsi menggunakan kunci privat. Hasil dekripsi disimpan sebagai file baru, memungkinkan pengguna memilih lokasi penyimpanannya.
 
-4. Run File Integrity Test
-Fitur ini melakukan enkripsi-dekripsi otomatis terhadap sebuah file, lalu membandingkan file asli dengan hasil dekripsi. Jika identik, maka file dinyatakan aman (integritas terjaga); jika tidak, muncul peringatan.
-
-5. Selain itu, semua proses yang sukses akan menampilkan notifikasi, dan error apapun ditangani serta ditampilkan ke pengguna melalui pop-up message.
+4. Selain itu, semua proses yang sukses akan menampilkan notifikasi, dan error apapun ditangani serta ditampilkan ke pengguna melalui pop-up message.

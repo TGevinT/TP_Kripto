@@ -105,8 +105,3 @@ Membuka file ciphertext .bin, lalu melakukan dekripsi menggunakan kunci privat. 
 Fitur ini melakukan enkripsi-dekripsi otomatis terhadap sebuah file, lalu membandingkan file asli dengan hasil dekripsi. Jika identik, maka file dinyatakan aman (integritas terjaga); jika tidak, muncul peringatan.
 
 5. Selain itu, semua proses yang sukses akan menampilkan notifikasi, dan error apapun ditangani serta ditampilkan ke pengguna melalui pop-up message.
-
-# 2. folder tests
-
-Berisi kumpulan file-file dalam bentuk binary executable file, image, dan video untuk pengecekan apakah berhasil atau tidak. Terdapat
-juga hasil yang sudah dienkripsi dan yang sudah didekripsi

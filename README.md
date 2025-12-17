@@ -105,3 +105,5 @@ Memungkinkan pengguna memilih file plaintext lewat file dialog, lalu mengenkrips
 Membuka file ciphertext .bin, lalu melakukan dekripsi menggunakan kunci privat. Hasil dekripsi disimpan sebagai file baru, memungkinkan pengguna memilih lokasi penyimpanannya.
 
 4. Selain itu, semua proses yang sukses akan menampilkan notifikasi, dan error apapun ditangani serta ditampilkan ke pengguna melalui pop-up message.
+
+5. Ini tes aja ya ges, klo ada yg ditambahin silahkan
